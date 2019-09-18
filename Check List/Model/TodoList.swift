@@ -12,6 +12,7 @@ class TodoList {
     
     var toDos: [ChecklistItem] = []
     
+    
     init() {
         
         let row0Item = ChecklistItem()
@@ -32,6 +33,22 @@ class TodoList {
         toDos.append(row3Item)
         toDos.append(row4Item)
         
+    }
+    
+    func newTodo() -> ChecklistItem {
+        let item = ChecklistItem()
+        item.text = randomTitle()
+        toDos.append(item)
+        return item
+    }
+    
+   private func randomTitle() -> String  {
+    
+        var titles = ["She said:", "Don't!!!", "Don't let it", "go to your head.", "Boys like you are a dime", "A DOZEN", "She said..."]
+
+        let randomNumber = Int.random(in: 0...titles.count - 1)
+
+        return titles[randomNumber]
     }
     
 }

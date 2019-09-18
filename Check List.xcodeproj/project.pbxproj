@@ -15,6 +15,7 @@
 		DA5B272F233133B300990778 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA5B272D233133B300990778 /* LaunchScreen.storyboard */; };
 		DA5B273A23315AD800990778 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B273923315AD800990778 /* ChecklistItem.swift */; };
 		DA5B273C2331C52600990778 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B273B2331C52600990778 /* TodoList.swift */; };
+		DA5B273E233200C500990778 /* AddItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5B273D233200C500990778 /* AddItemTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		DA5B2730233133B300990778 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA5B273923315AD800990778 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		DA5B273B2331C52600990778 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
+		DA5B273D233200C500990778 /* AddItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			children = (
 				DA5B2721233133AC00990778 /* AppDelegate.swift */,
 				DA5B2723233133AC00990778 /* ChecklistViewController.swift */,
+				DA5B273D233200C500990778 /* AddItemTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			files = (
 				DA5B273C2331C52600990778 /* TodoList.swift in Sources */,
 				DA5B2724233133AC00990778 /* ChecklistViewController.swift in Sources */,
+				DA5B273E233200C500990778 /* AddItemTableViewController.swift in Sources */,
 				DA5B2722233133AC00990778 /* AppDelegate.swift in Sources */,
 				DA5B272A233133AC00990778 /* Check_List.xcdatamodeld in Sources */,
 				DA5B273A23315AD800990778 /* ChecklistItem.swift in Sources */,

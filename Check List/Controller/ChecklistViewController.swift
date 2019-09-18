@@ -11,6 +11,8 @@ import UIKit
 class ChecklistViewController: UITableViewController {
 
     var toDoList: TodoList
+    @IBOutlet weak var cellTextField: UITextField!
+    
     
     required init?(coder aDecoder: NSCoder) {
         toDoList = TodoList()
@@ -19,7 +21,8 @@ class ChecklistViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        navigationController?.navigationBar.prefersLargeTitles = true // sets large title for Nav bar
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,6 +50,29 @@ class ChecklistViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         }
     }
+    
+    
+    //this activates the slide to delete in the table view
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        toDoList.toDos.remove(at: indexPath.row)
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+        
+    }
+    
+    @IBAction func addBarButtonPressed(_ sender: UIBarButtonItem) {
+        
+        let newRowIndex = toDoList.toDos.count
+        _ = toDoList.newTodo()
+        
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        let indexPaths = [indexPath]
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        
+    }
+    
+    
     
     //this method sets the correct text for the correct cell.
     func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
