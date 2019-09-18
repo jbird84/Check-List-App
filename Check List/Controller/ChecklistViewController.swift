@@ -83,12 +83,59 @@ class ChecklistViewController: UITableViewController {
     
     //this method allow you to "tap" and a checkmark will appear. Tap again and checkmark will disappear
     func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
+        guard let checkmark = cell.viewWithTag(2) as? UILabel else {
+            return
+        }
         if item.checked {
-          cell.accessoryType = .none
+          checkmark.text = ""
         } else {
-          cell.accessoryType = .checkmark
+          checkmark.text = "√"
          }
     item.toggleChecked()
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddItemSegue" {
+            if let addItemViewController = segue.destination as? ItemDetailV {
+                addItemViewController.delegate = self
+                addItemViewController.todoList = toDoList
+            }
+        }else if segue.identifier == "editItemSegue" {
+            if let addItemViewController = segue.destination as? ItemDetailV {
+                if let cell = sender as? UITableViewCell,
+                   let indexPath = tableView.indexPath(for: cell) {
+                   let item = toDoList.toDos[indexPath.row]
+                    addItemViewController.itemToEdit = item
+                    addItemViewController.delegate = self
+                }
+            }
+        }
+    }
+    
 }
 
+extension ChecklistViewController: ItemDetailViewController {
+    func addItemViewControllerDidCancel(_ controller: ItemDetailV) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func addItemViewController(_ controller: ItemDetailV, didFinishAdding item: ChecklistItem) {
+        navigationController?.popViewController(animated: true)
+        let rowIndex = toDoList.toDos.count - 1
+        let indexPath = IndexPath(row: rowIndex, section: 0)
+        let indexPaths = [indexPath]
+        tableView.insertRows(at: indexPaths, with: .automatic)
+    }
+    
+    func addItemViewController(_ controller: ItemDetailV, didFinishEditing item: ChecklistItem) {
+        if let index = toDoList.toDos.firstIndex(of: item) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) {
+            configureText(for: cell, with: item)
+            }
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    
+}

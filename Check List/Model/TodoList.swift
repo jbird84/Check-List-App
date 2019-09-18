@@ -38,6 +38,7 @@ class TodoList {
     func newTodo() -> ChecklistItem {
         let item = ChecklistItem()
         item.text = randomTitle()
+        item.checked = true
         toDos.append(item)
         return item
     }

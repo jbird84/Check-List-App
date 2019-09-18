@@ -8,22 +8,56 @@
 
 import UIKit
 
-class AddItemTableViewController: UITableViewController {
+//Any ViewController that wants to get a new checklist back, needs to implement this protocol.
+//NOTE: when using a protocol you need to be a delegate of THIS class.
+protocol ItemDetailViewController: class {
+    func addItemViewControllerDidCancel(_ controller: ItemDetailV)
+    func addItemViewController(_ controller: ItemDetailV, didFinishAdding item: ChecklistItem)
+    func addItemViewController(_ controller: ItemDetailV, didFinishEditing item: ChecklistItem)
+}
 
+class ItemDetailV: UITableViewController {
+
+    //delegate property for the protocol
+    weak var delegate: ItemDetailViewController?
+    weak var todoList: TodoList?
+    weak var itemToEdit: ChecklistItem?
+    
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
+    
+    
+    //Bar-Button that cancles "adding a new item to list" and sends user back to the ChecklistViewController
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        delegate?.addItemViewControllerDidCancel(self)
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        if let item = itemToEdit, let text = textField.text {
+            item.text = text
+            delegate?.addItemViewController(self, didFinishAdding: item)
+            
+        } else {
+          if let item = todoList?.newTodo() {
+            if let textFieldText = textField.text {
+              item.text = textFieldText
+            }
+             item.checked = false
+             delegate?.addItemViewController(self, didFinishAdding: item)
+            }
+        }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //textField.delegate = self
+
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            addBarButton.isEnabled = true
+        }
         navigationItem.largeTitleDisplayMode = .never
         
     }
@@ -39,7 +73,7 @@ class AddItemTableViewController: UITableViewController {
     }
 }
 
-extension AddItemTableViewController: UITextFieldDelegate {
+extension ItemDetailV: UITextFieldDelegate {
     
     //this method happens when the return button is pressed. 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
